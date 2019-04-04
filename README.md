@@ -97,7 +97,7 @@ More default and adjustable parameters for the main function can be  found in `/
 
 ## Contributing
 
-Please submitting pull requests to huchenqi1992@163.com.
+Please submitting pull requests to huangxing275@126.com.
 
 ## License
 
