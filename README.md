@@ -1,2 +1,2 @@
 # MCS
-mesoscale convective system
+Mesoscale convective system tracking algrithm
