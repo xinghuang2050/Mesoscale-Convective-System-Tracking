@@ -1,0 +1,45 @@
+# comment line begin with #, parameter line begin with #PBS
+# qsub does not allow defining variables here.
+#node_number=2
+#proc_per_node=4
+
+# job name
+#PBS -N mcs-1961-11
+# destination queue
+#PBS -q hpcb
+# required resources 
+# Allocate resource for each job. Not total amount for array.
+#PBS -l nodes=1:ppn=2
+# use job array, closed set.
+#PBS -t 1-1
+# not rerunable
+#PBS -r n
+# join output and error      
+#PBS -j oe
+# output file, the qsub will automatically add PBS_ARRAYID as suffix
+#PBS -o ${PBS_JOBID}_out
+
+# cd into the submitting dir
+cd $PBS_O_WORKDIR
+
+NP=$(wc -l < $PBS_NODEFILE) # Number of Processes
+#cat $PBS_NODEFILE 
+echo "Total number of processes is: "
+echo $NP
+
+echo "PBS_JOBID is : "
+echo $PBS_JOBID
+# e.g. 12776[12].manager
+echo $PBS_ARRAYID
+# e.g. 12
+
+array_size=1  
+
+/home/share/software/matlab2017b/bin/matlab -nodisplay -nosplash -nodesktop -logfile log_print_hostname.txt -r "pbs_run($array_size, ${PBS_ARRAYID})"
+#/home/share/software/matlab/bin/matlab -nodisplay -nosplash -nodesktop -logfile log_print_hostname.txt -r "pbs_run($array_size, ${PBS_ARRAYID})"
+
+# qstat -at # -t shows all sub jobs independently
+# qstat -ft # show full info of jobs
+# qdel 13389[] # kill job array 13389[]
+# qstat -tn1u hxm_stu
+# qacct -j <jobId>
